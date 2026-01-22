@@ -54,18 +54,21 @@ export default function VisionSection() {
             <br />
             <span className="opacity-80">More Than Luxury</span>
           </h2>
+{/* Mobile & Tablet Image */}
+<div className="block lg:hidden mb-10">
+  <div className="w-full aspect-[4/3] md:aspect-[16/9]">
+    <img
+      src={visionImg}
+      alt="Luxury Jewelry"
+      className="w-full h-full object-cover rounded-sm"
+      style={{
+        objectPosition: "50% 45%",
+      }}
+    />
+  </div>
+</div>
 
-          {/* Mobile & Tablet Image (same crop as desktop) */}
-          <div className="block lg:hidden mb-10">
-            <img
-              src={visionImg}
-              alt="Luxury Jewelry"
-              className="w-full h-[240px] md:h-[320px] object-cover rounded-sm"
-              style={{
-                objectPosition: "60% center", // ✅ matches desktop
-              }}
-            />
-          </div>
+
 
           <div className="w-28 h-[2px] bg-[#C7A24B] mb-6" />
 
