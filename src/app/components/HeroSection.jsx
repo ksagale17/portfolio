@@ -1,4 +1,4 @@
-import clientPhoto from '../../assets/hero.JPG';
+import clientPhoto from '../../assets/heropic.JPG';
 
 export default function HeroSection() {
   const scrollToSection = (sectionId) => {
@@ -15,13 +15,15 @@ export default function HeroSection() {
     >
       {/* Background */}
       <div className="absolute inset-0 z-0">
-        {/* Mobile: Full Image */}
-        <div className="lg:hidden absolute inset-0">
+        
+        {/* Mobile Image */}
+        <div className="lg:hidden absolute inset-y-0 right-0 w-full">
           <img
             src={clientPhoto}
             alt="Shashi Bhushan – Fine Jewelry Leadership"
             className="w-full h-full object-cover"
             style={{
+              objectPosition: '60% center',
               filter: 'grayscale(100%) contrast(1.05) brightness(0.9)',
             }}
           />
@@ -44,6 +46,7 @@ export default function HeroSection() {
             alt="Shashi Bhushan – Fine Jewelry Leadership"
             className="w-full h-full object-cover"
             style={{
+              objectPosition: '50% 80%', // ✅ FIXED
               filter: 'grayscale(100%) contrast(1.05) brightness(0.9)',
             }}
           />
@@ -68,7 +71,7 @@ export default function HeroSection() {
               style={{ fontFamily: 'var(--font-serif)' }}
             >
               Visionary Leader in <br />
-              Jewelry  Business Innovation
+              Jewelry Business Innovation
             </h1>
             <div className="w-28 h-[1px] bg-[#C7A24B] mt-6" />
           </div>
@@ -79,21 +82,21 @@ export default function HeroSection() {
             style={{ fontFamily: 'var(--font-sans)' }}
           >
             Founder & Director of Gems Muse Limited <br />
-            25+ Years in Diamonds, Gemstones & Jewelry
+            <span className="font-semibold text-[#1B1B1B]">25+</span> Years in Diamonds,
+            Gemstones & Jewelry
           </p>
 
-        {/* Identity Line */}
-<p
-  className="text-xl md:text-2xl text-[#C7A24B] flex items-center gap-3"
-  style={{ fontFamily: 'var(--font-sans)' }}
->
-  <span>Entrepreneur</span>
-  <span className="font-extralight">|</span>
-  <span>Innovator</span>
-  <span className="font-extralight">|</span>
-  <span>Artisan</span>
-</p>
-
+          {/* Identity Line */}
+          <p
+            className="text-xl md:text-2xl flex items-center gap-3"
+            style={{ fontFamily: 'var(--font-sans)' }}
+          >
+            <span className="text-[#1B1B1B]">Entrepreneur</span>
+            <span className="font-extralight text-[#C7A24B]">|</span>
+            <span className="text-[#1B1B1B]">Innovator</span>
+            <span className="font-extralight text-[#C7A24B]">|</span>
+            <span className="text-[#1B1B1B]">Artisan</span>
+          </p>
 
         </div>
       </div>

@@ -1,9 +1,9 @@
 import { useState, useEffect } from "react";
 
 /* ===================== LOCAL IMAGE IMPORTS ===================== */
-import sp1 from "../../assets/sp1.PNG";
-import sp2 from "../../assets/sp2.PNG";
-import sp3 from "../../assets/sp3.PNG";
+import sp1 from "../../assets/P23.jpg";
+import sp2 from "../../assets/P51.jpg";
+import sp3 from "../../assets/P12.jpg";
 import sp9 from "../../assets/sp9.JPG";
 import sp11 from "../../assets/sp11.JPG";
 import sp12 from "../../assets/sp12.jpg";

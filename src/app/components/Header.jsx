@@ -29,7 +29,7 @@ export default function Header() {
           {/* Desktop Nav */}
           <div className="hidden lg:flex items-center gap-12">
             <button onClick={() => scrollToSection('about')} className="text-base text-[#1B1B1B] hover:text-[#C7A24B] transition-colors">
-              The Journey
+              Vision
             </button>
             <button onClick={() => scrollToSection('expertise')} className="text-base text-[#1B1B1B] hover:text-[#C7A24B] transition-colors">
               Expertise
@@ -63,17 +63,17 @@ export default function Header() {
           <div className="lg:hidden py-6 border-t border-[#E5E3DF]">
             <nav className="flex flex-col gap-4">
               <button onClick={() => scrollToSection('about')} className="text-left py-2 hover:text-[#C7A24B]">
-                About
+                Vision
               </button>
               <button onClick={() => scrollToSection('expertise')} className="text-left py-2 hover:text-[#C7A24B]">
                 Expertise
               </button>
               <button onClick={() => scrollToSection('achievements')} className="text-left py-2 hover:text-[#C7A24B]">
-                Achievements
+                Future
               </button>
-              <button onClick={() => scrollToSection('vision')} className="text-left py-2 hover:text-[#C7A24B]">
+              {/* <button onClick={() => scrollToSection('vision')} className="text-left py-2 hover:text-[#C7A24B]">
                 Vision
-              </button>
+              </button> */}
               <button onClick={() => scrollToSection('investors')} className="text-left py-2 hover:text-[#C7A24B]">
                 Investors
               </button>

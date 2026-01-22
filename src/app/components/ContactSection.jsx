@@ -41,7 +41,7 @@ export default function ContactSection() {
             {/* CONNECT */}
             <div className="space-y-5 mb-8">
               <p
-                className="text-xs tracking-wider text-[#C7A24B] flex items-center gap-2"
+                className="text-xs tracking-wider text-[#1B1B1B] flex items-center gap-2"
                 style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
               >
                 CONNECT
@@ -59,16 +59,17 @@ export default function ContactSection() {
                     className="text-xs text-[#8B8985] mb-1 tracking-wider"
                     style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
                   >
-                    EMAIL
+                  
                   </p>
 
                   <a
-                    href="mailto:shashi@shashi.me"
-                    className="text-base text-[#1B1B1B] hover:text-[#C7A24B] transition-colors"
-                    style={{ fontFamily: 'var(--font-sans)' }}
-                  >
-                    shashi@shashi.me
-                  </a>
+  href="mailto:shashi@shashi.me"
+  className="text-base text-[#1B1B1B] hover:text-[#C7A24B] transition-colors"
+  style={{ fontFamily: 'var(--font-sans)', fontWeight: '400' }} // normal weight
+>
+  shashi@shashi.me
+</a>
+
                 </div>
               </div>
             </div>

@@ -10,7 +10,7 @@ export default function AboutSection() {
   <p
     className="text-4xl md:text-5xl text-[#C7A24B] font-serif font-normal mb-6"
   >
-    The Journey
+    Vision
   </p>
 </div>
 
@@ -42,7 +42,7 @@ export default function AboutSection() {
               className="text-lg text-[#1B1B1B] mb-6 leading-relaxed"
               style={{ fontFamily: 'var(--font-sans)' }}
             >
-             "The Farmer's Son With A Jewelry's Soul"
+             <b>"The Farmer's Son With A jeweler's Soul"</b>
             </p>
 
             <div className="space-y-5">
@@ -54,12 +54,18 @@ export default function AboutSection() {
               </p>
 
               {/* Tagline */}
-              <p 
-                className="text-base md:text-lg text-[#C7A24B]"
-                style={{ fontFamily: 'var(--font-sans)' }}
-              >
-                Precision | Artistry | Trust
-              </p>
+<p 
+  className="text-base md:text-lg flex items-center gap-2"
+  style={{ fontFamily: 'var(--font-sans)' }}
+>
+  <span className="text-[#1B1B1B] font-bold">Precision</span>
+  <span className="text-[#C7A24B]">|</span>
+  <span className="text-[#1B1B1B] font-bold">Artistry</span>
+  <span className="text-[#C7A24B]">|</span>
+  <span className="text-[#1B1B1B] font-bold">Trust</span>
+</p>
+
+
 
               {/* Pull Quote - Cursive in Content */}
               <div className="pl-6 border-l-2 border-[#C7A24B] my-6">
@@ -75,9 +81,9 @@ export default function AboutSection() {
                 className="text-base text-[#1B1B1B] leading-relaxed"
                 style={{ fontFamily: 'var(--font-sans)' }}
               >
-Over the past two decades, Shashi has built many ventures and his manufacturing company Gems Muse Limited into a globally recognized name in the luxury jewelry sector. His approach combines traditional craftsmanship with cutting-edge technology, sustainability with profitability, and artistry with strategic market positioning.
+                Over the past two decades, Shashi has built many ventures and his manufacturing company <b>Gems Muse Limited </b>  into a globally recognized name in the luxury jewelry sector. His approach combines traditional craftsmanship with cutting-edge technology, sustainability with profitability, and artistry with strategic market positioning.
 
-Today, he stands at the forefront of jewelry innovation, leading initiatives in ethical sourcing, technology integration in manufacturing, and brand creation for emerging markets.              </p>
+           </p>
 
               <p 
                 className="text-base text-[#1B1B1B] leading-relaxed"
