@@ -3,11 +3,51 @@ import { Mail, Linkedin, Instagram, Send, Facebook } from 'lucide-react';
 
 export default function ContactSection() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: '',
+  });
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => setFormSubmitted(false), 3000);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/email/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        setTimeout(() => setFormSubmitted(false), 5000);
+        setFormData({
+          name: '',
+          email: '',
+          message: '',
+        });
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setError('Failed to send message. Please check your connection.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -59,16 +99,16 @@ export default function ContactSection() {
                     className="text-xs text-[#8B8985] mb-1 tracking-wider"
                     style={{ fontFamily: 'var(--font-sans)', letterSpacing: '0.08em' }}
                   >
-                  
+
                   </p>
 
                   <a
-  href="mailto:shashi@shashi.me"
-  className="text-base text-[#1B1B1B] hover:text-[#C7A24B] transition-colors"
-  style={{ fontFamily: 'var(--font-sans)', fontWeight: '400' }} // normal weight
->
-  shashi@shashi.me
-</a>
+                    href="mailto:shashi@shashi.me"
+                    className="text-base text-[#1B1B1B] hover:text-[#C7A24B] transition-colors"
+                    style={{ fontFamily: 'var(--font-sans)', fontWeight: '400' }} // normal weight
+                  >
+                    shashi@shashi.me
+                  </a>
 
                 </div>
               </div>
@@ -166,6 +206,9 @@ export default function ContactSection() {
                 >
                   <input
                     required
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Your Name"
                     className="w-full px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-sm
                                focus:border-[#C7A24B] outline-none"
@@ -174,6 +217,9 @@ export default function ContactSection() {
                   <input
                     required
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Email Address"
                     className="w-full px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-sm
                                focus:border-[#C7A24B] outline-none"
@@ -181,25 +227,31 @@ export default function ContactSection() {
 
                   <textarea
                     required
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
                     rows={5}
                     placeholder="Your Message"
                     className="w-full px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-sm
                                focus:border-[#C7A24B] outline-none resize-none"
                   />
 
-                  <div className="flex justify-center pt-2">
+                  <div className="flex justify-center pt-2 flex-col items-center">
                     <button
                       type="submit"
+                      disabled={isSubmitting}
                       className="px-4 py-2.5 text-base font-medium
                                  border border-[#C7A24B] text-[#C7A24B]
                                  hover:bg-[#C7A24B] hover:text-white
                                  transition-all duration-300
                                  hover:shadow-[0_2px_16px_rgba(199,162,75,0.3)]
-                                 flex items-center gap-2"
+                                 flex items-center gap-2
+                                 disabled:opacity-50 disabled:cursor-not-allowed"
                     >
-                      Send Message
-                      <Send className="w-4 h-4" />
+                      {isSubmitting ? 'Sending...' : 'Send Message'}
+                      {!isSubmitting && <Send className="w-4 h-4" />}
                     </button>
+                    {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                   </div>
                 </form>
               )}

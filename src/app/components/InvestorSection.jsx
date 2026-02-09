@@ -3,6 +3,15 @@ import { Building2, TrendingUp, Globe2, FileText } from 'lucide-react';
 
 export default function InvestorSection() {
   const [formSubmitted, setFormSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    company: '',
+    interest: '',
+    message: '',
+  });
 
   const opportunities = [
     {
@@ -25,10 +34,45 @@ export default function InvestorSection() {
     },
   ];
 
-  const handleSubmit = (e) => {
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    setFormSubmitted(true);
-    setTimeout(() => setFormSubmitted(false), 3000);
+    setIsSubmitting(true);
+    setError('');
+
+    try {
+      const response = await fetch('http://localhost:5000/api/email/investor-deck', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setFormSubmitted(true);
+        setTimeout(() => setFormSubmitted(false), 5000);
+        setFormData({
+          name: '',
+          email: '',
+          company: '',
+          interest: '',
+          message: '',
+        });
+      } else {
+        const data = await response.json();
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      console.error('Error submitting form:', err);
+      setError('Failed to send request. Please check your connection.');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -40,11 +84,11 @@ export default function InvestorSection() {
         {/* Section Header */}
         <div className="mb-10">
           <h2
-  className="text-2xl md:text-3xl text-[#1B1B1B] mb-3"
-  style={{ fontFamily: 'var(--font-serif)' }}
->
-  Investor & Collaboration Opportunities
-</h2>
+            className="text-2xl md:text-3xl text-[#1B1B1B] mb-3"
+            style={{ fontFamily: 'var(--font-serif)' }}
+          >
+            Investor & Collaboration Opportunities
+          </h2>
 
 
           {/* Thin underline */}
@@ -145,6 +189,9 @@ export default function InvestorSection() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <input
                     type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
                     placeholder="Full Name"
                     required
                     className="px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-[#1B1B1B] placeholder-[#8B8985] focus:outline-none focus:border-[#C7A24B] text-sm"
@@ -152,6 +199,9 @@ export default function InvestorSection() {
                   />
                   <input
                     type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
                     placeholder="Email Address"
                     required
                     className="px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-[#1B1B1B] placeholder-[#8B8985] focus:outline-none focus:border-[#C7A24B] text-sm"
@@ -162,41 +212,53 @@ export default function InvestorSection() {
                 <div className="grid md:grid-cols-2 gap-4">
                   <input
                     type="text"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleInputChange}
                     placeholder="Company / Organization"
                     className="px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-[#1B1B1B] placeholder-[#8B8985] focus:outline-none focus:border-[#C7A24B] text-sm"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   />
                   <select
+                    name="interest"
+                    value={formData.interest}
+                    onChange={handleInputChange}
                     className="px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-[#1B1B1B] focus:outline-none focus:border-[#C7A24B] text-sm"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
-                    <option>Investment Interest</option>
-                    <option>Equity Partnership</option>
-                    <option>Brand Ventures</option>
-                    <option>Market Expansion</option>
-                    <option>Other Opportunity</option>
+                    <option value="">Investment Interest</option>
+                    <option value="Equity Partnership">Equity Partnership</option>
+                    <option value="Brand Ventures">Brand Ventures</option>
+                    <option value="Market Expansion">Market Expansion</option>
+                    <option value="Other Opportunity">Other Opportunity</option>
                   </select>
                 </div>
 
                 <textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   placeholder="Brief message about your investment interests"
                   rows={4}
                   className="w-full px-4 py-3 bg-[#F6F4F1] border border-[#E5E3DF] text-[#1B1B1B] placeholder-[#8B8985] focus:outline-none focus:border-[#C7A24B] resize-none text-sm"
                   style={{ fontFamily: 'var(--font-sans)' }}
                 />
 
-                <div className="flex justify-center">
+                <div className="flex justify-center flex-col items-center">
                   <button
                     type="submit"
+                    disabled={isSubmitting}
                     className="px-4 py-2.5 text-base font-medium
                       border border-[#C7A24B] text-[#C7A24B]
                       hover:bg-[#C7A24B] hover:text-white
                       transition-all duration-300
-                      hover:shadow-[0_2px_16px_rgba(199,162,75,0.3)]"
+                      hover:shadow-[0_2px_16px_rgba(199,162,75,0.3)]
+                      disabled:opacity-50 disabled:cursor-not-allowed"
                     style={{ fontFamily: 'var(--font-sans)' }}
                   >
-                    Request Investor Deck
+                    {isSubmitting ? 'Sending...' : 'Request Investor Deck'}
                   </button>
+                  {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
                 </div>
               </form>
             )}
