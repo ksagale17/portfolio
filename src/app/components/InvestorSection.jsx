@@ -45,7 +45,7 @@ export default function InvestorSection() {
     setError('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/email/investor-deck', {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/email/investor-deck`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
